@@ -1,0 +1,40 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Mon Mar 31 23:49:20 2014
+;; Desktop file format version 206
+;; Emacs version 24.3.1
+
+;; Global section:
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '("nau" "==" "history" "else" "history" "else" "pre" "==" "c-mode" "setopt" "mail" "cai" "widget" "arrl" "tdwidget" "clock"))
+(setq regexp-search-ring nil)
+(setq register-alist '((48 . "8")))
+(setq file-name-history '("/home/twtwtw/.config/awesome/themes/powerarrow-darker" "/home/twtwtw/.config/awesome/themes/powerarrow-darker/theme.lua" "/home/twtwtw/.config/awesome/themes/powerarrowf-dark/theme.lua" "/etc/xdg/awesome/rc.lua" "/home/twtwtw/.config/awesome/powerarrowf-dark/theme.lua" "~/.emacs.d/desktop/" "/home/twtwtw/.config/awesome/rc.lua" "~/.emacs.d/desktop/" "/home/twtwtw/.config/awesome/rc.lua" "/home/twtwtw/Documents/Linux/Nautilus.md" "~/.emacs.d/" "/home/twtwtw/.config/awesome/rc.lua" "/tmp/yaourt-tmp-twtwtw/aur-file-roller-fixzip/file-roller.install" "/tmp/yaourt-tmp-twtwtw/aur-file-roller-fixzip/PKGBUILD" "~/.emacs.d/desktop/" "/home/twtwtw/.config/awesome/rc.lua" "~/.emacs.d/desktop/" "/home/twtwtw/.config/awesome/rc.lua" "/home/twtwtw/.config/awesome/powerarrowf-dark/theme.lua" "/home/twtwtw/.live-packs.d/twtwtw-pack/config/desktop-auto-save.el" "/home/twtwtw/.live-packs.d/twtwtw-pack/config/custom-config.el" "/home/twtwtw/.live-packs.d/test.txt" "/home/twtwtw/.config/awesome/0.cpp" "/home/twtwtw/.zshrc" "/home/twtwtw/.config/awesome/rc.lua" "/home/twtwtw/.config/awesome/treeMenu.py" "/home/twtwtw/.config/awesome/asyncshell.lua" "/home/twtwtw/.config/awesome/powerarrowf-dark/theme.lua" "~/.emacs.d/desktop/" "/home/twtwtw/.config/awesome/rc.lua" "/home/twtwtw/a"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/home/twtwtw/.config/awesome/themes/powerarrowf-dark/theme.lua"
+  "theme.lua"
+  'lua-mode
+  '(auto-compile-on-load-mode window-number-mode auto-complete-mode volatile-highlights-mode yas-minor-mode undo-tree-mode openwith-mode indent-guide-mode hs-minor-mode autopair-mode)
+  734
+  '(238 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/home/twtwtw/.config/awesome/themes/powerarrow-darker/theme.lua"
+  "theme.lua"
+  'lua-mode
+  '(auto-compile-on-load-mode window-number-mode auto-complete-mode volatile-highlights-mode yas-minor-mode undo-tree-mode openwith-mode indent-guide-mode hs-minor-mode autopair-mode)
+  882
+  '(882 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix)))
+
