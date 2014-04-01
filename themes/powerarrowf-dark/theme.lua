@@ -23,7 +23,7 @@ theme.notify_fg     = theme.fg_normal
 theme.notify_bg     = theme.bg_normal
 theme.notify_border                 = theme.border_focus
 
-theme.border_width  = 1
+theme.border_width  = 0
 theme.border_normal = "#000000"
 theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"

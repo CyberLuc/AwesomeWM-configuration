@@ -95,7 +95,7 @@ end
 -- Define a tag table which hold all screen tags.
 tags = {
 	names = {"Internet", "Emacs", "Development", "Terminals", "Entertainment", "Misc"},
-	layouts = {layouts[1], layouts[3], layouts[1], layouts[3], layouts[1], layouts[1],}
+	layouts = {layouts[1], layouts[1], layouts[1], layouts[2], layouts[1], layouts[2],}
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -606,32 +606,35 @@ awful.rules.rules = {
     { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
-                     -- focus = awful.client.focus.filter,
+                     focus = awful.client.focus.filter,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      size_hints_honor = false
-	     }
-    },
+    } },
     { rule = { class = "terminology" },
-      properties = { focus = true } },
+      properties = { focus = true }, callback = awful.placement.centered },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
+    { rule = { instance = "cbconsole"},
+      properties = { floating = true }, callback = awful.placement.centered },
     { rule = { instance = "Dialog" },
-      properties = { floating = true }, callback = function (c) awful.placement.centered(c,nil) end },
+      properties = { floating = true }, callback = awful.placement.centered },
     { rule = { instance = "feh" },
-      properties = { floating = true }, callback = function (c) awful.placement.centered(c,nil) end },
+      properties = { floating = true }, callback = awful.placement.centered },
     { rule = { class = "Nautilus" },
-      properties = { floating = true }, callback = function (c) awful.placement.centered(c,nil) end },
+      properties = { floating = true }, callback = awful.placement.centered },
     { rule = { instance = "file_properties" },
-      properties = { floating = true }, callback = function (c) awful.placement.centered(c,nil) end },
+      properties = { floating = true }, callback = awful.placement.centered },
     { rule = { class = "File-roller" },
-      properties = { floating = true }, callback = function (c) awful.placement.centered(c,nil) end },
+      properties = { floating = true }, callback = awful.placement.centered },
+    { rule = { class = "Compress" },
+      properties = { floating = true }, callback = awful.placement.centered },
     { rule = { instance = "file-roller" },
-      properties = { floating = true }, callback = function (c) awful.placement.centered(c,nil) end },
+      properties = { floating = true }, callback = awful.placement.centered },
     { rule = { class = "Gthumb" },
-      properties = { floating = true }, callback = function (c) awful.placement.centered(c,nil) end },
+      properties = { floating = true }, callback = awful.placement.centered },
     { rule = { instance = "Places" },
-      properties = { floating = true }, callback = function (c) awful.placement.centered(c,nil) end },
+      properties = { floating = true }, callback = function (c) awful.placement.centered(c, nil) end },
     { rule = { class = "Emacs" },
       properties = { tag = tags[1][2] } },
     { rule = { class = "Codeblocks" },
@@ -735,7 +738,7 @@ end
 run_once("fcitx")
 -- awful.util.spawn_with_shell("xmodmap ~/.speedswapper")
 -- awful.util.spawn_with_shell("dbus-launch docky")
-run_once("xcompmgr -Ss -n -Cc -fF -I-10 -O-10 -D1 -t-3 -l-4 -r4 &")
+-- run_once("xcompmgr -Ss -n -Cc -fF -I-10 -O-10 -D1 -t-3 -l-4 -r4 &")
 run_once("firefox")
 run_once("emacs")
 run_once("keynav")
@@ -745,7 +748,7 @@ run_once("keynav")
 -- {{ Turns off the terminal bell }} --
 -- awful.util.spawn_with_shell("/usr/bin/xset b off")
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus  end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
