@@ -376,7 +376,7 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey,           }, "i",      awful.tag.viewprev       ),
    awful.key({ modkey,           }, "o",      awful.tag.viewnext       ),
    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-   awful.key({ modkey,           }, "q",      awful.tag.history.restore),
+   awful.key({ modkey,           }, "x",      awful.tag.history.restore),
 
    -- {{ Shortcut Key Bindings }} --
    awful.key({ "Control", modkey}, "a", function() awful.util.spawn(browser) end),
@@ -447,13 +447,13 @@ awful.key({     }, "XF86AudioMute", function() awful.util.spawn("amixer set Mast
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
-    awful.key({ modkey }, "x",
-              function ()
-                  awful.prompt.run({ prompt = "Run Lua code: " },
-                  mypromptbox[mouse.screen].widget,
-                  awful.util.eval, nil,
-                  awful.util.getdir("cache") .. "/history_eval")
-              end),
+    -- awful.key({ modkey }, "x",
+    --           function ()
+    --               awful.prompt.run({ prompt = "Run Lua code: " },
+    --               mypromptbox[mouse.screen].widget,
+    --               awful.util.eval, nil,
+    --               awful.util.getdir("cache") .. "/history_eval")
+    --           end),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end)
 )
@@ -461,6 +461,7 @@ awful.key({     }, "XF86AudioMute", function() awful.util.spawn("amixer set Mast
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
+    awful.key({ modkey,           }, "q",      function (c) c:kill()                         end),
     awful.key({ "Mod1"            }, "F4",     function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
@@ -484,21 +485,22 @@ globalkeys = awful.util.table.join(globalkeys,
 		function()
 			local screen = mouse.screen
 			local tag = awful.tag.gettags(screen)[1]
-            local cur = awful.tag.selected(1)
-            if awful.tag.getidx(cur) == 1 then
-               awful.tag.history.restore(screen)
-			elseif tag then
+            if tag then
                awful.tag.viewonly(tag)
             end
+            -- local cur = awful.tag.selected(1)
+            -- if awful.tag.getidx(cur) == 1 then
+            --    awful.tag.history.restore(screen)
+			-- elseif tag then
+            --    awful.tag.viewonly(tag)
+            -- end
 		end
 	),
 	awful.key({modkey }, "e",
 		function()
 			local screen = mouse.screen
 			local tag = awful.tag.gettags(screen)[2]
-            if awful.tag.getidx(cur) == 2 then
-               awful.tag.history.restore(screen)
-			elseif tag then
+            if tag then
                awful.tag.viewonly(tag)
             end
 		end
@@ -507,9 +509,7 @@ globalkeys = awful.util.table.join(globalkeys,
 		function()
 			local screen = mouse.screen
 			local tag = awful.tag.gettags(screen)[4]
-            if awful.tag.getidx(cur) == 4 then
-               awful.tag.history.restore(screen)
-			elseif tag then
+            if tag then
                awful.tag.viewonly(tag)
             end
 		end
@@ -518,9 +518,7 @@ globalkeys = awful.util.table.join(globalkeys,
 		function()
 			local screen = mouse.screen
 			local tag = awful.tag.gettags(screen)[3]
-            if awful.tag.getidx(cur) == 3 then
-               awful.tag.history.restore(screen)
-			elseif tag then
+            if tag then
                awful.tag.viewonly(tag)
             end
 		end
@@ -529,9 +527,7 @@ globalkeys = awful.util.table.join(globalkeys,
 		function()
 			local screen = mouse.screen
 			local tag = awful.tag.gettags(screen)[5]
-            if awful.tag.getidx(cur) == 5 then
-               awful.tag.history.restore(screen)
-			elseif tag then
+            if tag then
                awful.tag.viewonly(tag)
             end
 		end
@@ -540,9 +536,7 @@ globalkeys = awful.util.table.join(globalkeys,
 		function()
 			local screen = mouse.screen
 			local tag = awful.tag.gettags(screen)[6]
-            if awful.tag.getidx(cur) == 6 then
-               awful.tag.history.restore(screen)
-			elseif tag then
+            if tag then
                awful.tag.viewonly(tag)
             end
 		end
