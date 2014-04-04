@@ -3,10 +3,12 @@
 ---------------------------
 
 theme = {}
+theme.name = "PowerArrowf-Dark"
 
 -- Setup Paths
 themes_dir = os.getenv("HOME") .. "/.config/awesome/themes/powerarrowf-dark"
 
+-- theme.font          = "YaHei Consolas Hybrid 10"
 theme.font          = "Hiragino Sans GB W3 8"
 theme.wallpaper     = themes_dir .. "/darkwood.png"
 
@@ -122,6 +124,8 @@ theme.mailopen = themes_dir .. "/icons/mailopen.png"
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = "GNOME"
+theme.awesome_icon = themes_dir .. "/icons/awesome_icon.png"
+theme.menu_icon = themes_dir .. "/icons/menu_icon.png"
+theme.icon_theme = "Faience-Claire"
 
 return theme
