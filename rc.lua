@@ -50,6 +50,7 @@ themes_dir = (config_dir .. "themes/powerarrowf-dark")
 beautiful.init(themes_dir .. "/theme.lua")
 
 -- This is used later as the default terminal, browser and editor to run.
+-- terminal = "lilyterm --geometry 81x21"
 terminal = "terminology"
 editor = os.getenv("EDITOR") or "emacs"
 editor_cmd = "emacsclient -n "
@@ -187,24 +188,24 @@ end, 120, 'wlp8s0')
 
 -- {{ Volume Widget }} --
 
-volume = wibox.widget.textbox()
-vicious.register(volume, vicious.widgets.volume, '<span font="Hiragino Sans GB W3 8" color="#AAAAAA" background="#1F2428"> Vol:$1 </span>', 0.2, "Master")
+-- volume = wibox.widget.textbox()
+-- vicious.register(volume, vicious.widgets.volume, '<span font="Hiragino Sans GB W3 8" color="#AAAAAA" background="#1F2428"> Vol:$1 </span>', 0.2, "Master")
 
-volumeicon = wibox.widget.imagebox()
-vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
-        local paraone = tonumber(args[1])
+-- volumeicon = wibox.widget.imagebox()
+-- vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
+--         local paraone = tonumber(args[1])
 
-        if args[2] == "♩" or paraone == 0 then
-                volumeicon:set_image(beautiful.mute)
-        elseif paraone >= 67 and paraone <= 100 then
-                volumeicon:set_image(beautiful.music)
-        elseif paraone >= 33 and paraone <= 66 then
-                volumeicon:set_image(beautiful.music)
-        else
-                volumeicon:set_image(beautiful.music)
-        end
+--         if args[2] == "♩" or paraone == 0 then
+--                 volumeicon:set_image(beautiful.mute)
+--         elseif paraone >= 67 and paraone <= 100 then
+--                 volumeicon:set_image(beautiful.music)
+--         elseif paraone >= 33 and paraone <= 66 then
+--                 volumeicon:set_image(beautiful.music)
+--         else
+--                 volumeicon:set_image(beautiful.music)
+--         end
 
-end, 0.3, "Master")
+-- end, 0.3, "Master")
 
 --{{--| SPACE widget |-----------------
 spacewidget = wibox.widget.textbox()
@@ -226,13 +227,13 @@ cpuicon = wibox.widget.imagebox()
 cpuicon:set_image(beautiful.cpu)
 
 --{{---| File Size widget |-----
-fswidget = wibox.widget.textbox()
+-- fswidget = wibox.widget.textbox()
 
-vicious.register(fswidget, vicious.widgets.fs,
-'<span background="#313131" font="Hiragino Sans GB W3 8"> <span font="Hiragino Sans GB W3 8" color="#AAAAAA">${/home used_gb}/${/home size_gb} GB </span></span>', 800)
+-- vicious.register(fswidget, vicious.widgets.fs,
+-- '<span background="#313131" font="Hiragino Sans GB W3 8"> <span font="Hiragino Sans GB W3 8" color="#AAAAAA">${/home used_gb}/${/home size_gb} GB </span></span>', 800)
 
-fsicon = wibox.widget.imagebox()
-fsicon:set_image(beautiful.hdd)
+-- fsicon = wibox.widget.imagebox()
+-- fsicon:set_image(beautiful.hdd)
 
 -- {{ GMail Widget }} --
 -- mailicon = wibox.widget.imagebox()
@@ -337,12 +338,12 @@ for s = 1, screen.count() do
     right_layout:add(arrl_ld)
     right_layout:add(cpuicon)
     right_layout:add(cpuwidget)
-    right_layout:add(arrl_dl)
-    right_layout:add(volumeicon)
-    right_layout:add(volume)
-    right_layout:add(arrl_ld)
-    right_layout:add(fsicon)
-    right_layout:add(fswidget)
+    -- right_layout:add(arrl_dl)
+    -- right_layout:add(volumeicon)
+    -- right_layout:add(volume)
+    -- right_layout:add(arrl_ld)
+    -- right_layout:add(fsicon)
+    -- right_layout:add(fswidget)
     right_layout:add(arrl_dl)
     right_layout:add(baticon)
     right_layout:add(batwidget)
@@ -411,14 +412,25 @@ awful.key({     }, "XF86AudioMute", function() awful.util.spawn("amixer set Mast
             awful.client.focus.bydirection("left")
             if client.focus then client.focus:raise() end
         end),
+    -- awful.key({ modkey,           }, "j",
+    --     function ()
+    --         awful.client.focus.bydirection("down")
+    --         if client.focus then client.focus:raise() end
+    --     end),
+    -- awful.key({ modkey,           }, "k",
+    --     function ()
+    --         awful.client.focus.bydirection("up")
+    --         if client.focus then client.focus:raise() end
+    --     end),
+
     awful.key({ modkey,           }, "j",
         function ()
-            awful.client.focus.bydirection("down")
+           awful.client.focus.byidx(1)
             if client.focus then client.focus:raise() end
         end),
     awful.key({ modkey,           }, "k",
         function ()
-            awful.client.focus.bydirection("up")
+           awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
 
@@ -751,11 +763,15 @@ end
 -- run_once("xcompmgr -Ss -n -Cc -fF -I-10 -O-10 -D1 -t-3 -l-4 -r4 &")
 run_once("nm-applet")
 run_once("fcitx")
+--run_once("/home/twtwtw/Scripts/setKeyboard.sh")
+run_once("parcellite")
+run_once("volumeicon")
 run_once("thunar --daemon")
+run_once("numlockx on")
 run_once("compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &")
 -- run_once("firefox")
 -- run_once("emacs")
--- run_once("keynav")
+run_once("keynav")
 
 -- run_once("dbus-launch docky")
 
