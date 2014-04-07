@@ -12,7 +12,6 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
-
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -51,7 +50,7 @@ beautiful.init(themes_dir .. "/theme.lua")
 
 -- This is used later as the default terminal, browser and editor to run.
 -- terminal = "lilyterm --geometry 81x21"
-terminal = "terminology"
+terminal = "lilyterm"
 editor = os.getenv("EDITOR") or "emacs"
 editor_cmd = "emacsclient -n "
 -- editor_cmd = terminal .. " -e " .. editor
@@ -92,15 +91,15 @@ local layouts =
 -- end
 
 
-awful.util.spawn("/home/twtwtw/Scripts/changeWallpaper.sh next")
+awful.util.spawn("/home/twtwtw/Scripts/changeWallpaper.sh random")
 
 -- }}}
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names = {"Firefox", "Emacs", "Versatile", "Development", "Entertainment", "Misc"},
-	layouts = {layouts[1], layouts[3], layouts[2], layouts[1], layouts[1], layouts[2],}
+	names = {"Firefox", "Emacs", "Versatile", "Development", "Entertainment", "Virtual", "Misc"},
+	layouts = {layouts[1], layouts[2], layouts[2], layouts[1], layouts[1], layouts[1] , layouts[2],}
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -115,14 +114,25 @@ myawesomemenu = {
    { "Edit config", editor_cmd .. " " .. awesome.conffile },
    { "Restart", awesome.restart },
    { "Quit", awesome.quit },
+
+}
+myPowerMenu = {
+   { "Logout", awesome.quit },
    { "Reboot", function() awful.util.spawn("systemctl reboot") end},
+   { "Suspend", function() awful.util.spawn("sudo pm-suspend") end},
+   { "Hibernate", function() awful.util.spawn("sudo pm-hibernate") end},
    { "Poweroff", function() awful.util.spawn("systemctl poweroff") end}
 }
 
-mymainmenu = awful.menu({ items = { { "Awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Open terminal", terminal }
-                                  }
-                        })
+mymainmenu = awful.menu(
+   { items =
+        {
+           { "Awesome", myawesomemenu, beautiful.awesome_icon },
+           { "Open terminal", terminal },
+           { "Power", myPowerMenu, beautiful.awesome_icon },
+        }
+   }
+)
 
 --mylauncher = awful.widget.launcher({ menu = mymainmenu })
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mymainmenu })
@@ -381,16 +391,16 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey,           }, "i",      awful.tag.viewprev       ),
    awful.key({ modkey,           }, "o",      awful.tag.viewnext       ),
    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-   awful.key({ modkey,           }, "x",      awful.tag.history.restore),
+   --awful.key({ modkey,           }, "x",      awful.tag.history.restore),
    awful.key({ modkey,           }, "w", function() mymainmenu:show() end),
 
    -- {{ Shortcut Key Bindings }} --
    awful.key({ "Control", modkey}, "a", function() awful.util.spawn(browser) end),
    awful.key({ "Control", modkey}, "e", function() awful.util.spawn(editor) end),
-   awful.key({ "Control", modkey}, "d", function() awful.util.spawn("dbus-launch thunar") end),
+   awful.key({ "Control", modkey}, "d", function() awful.util.spawn("nautilus") end),
    awful.key({ "Control", modkey}, "c", function() awful.util.spawn("codeblocks") end),
    awful.key({ "Control", modkey}, "b", function() awful.util.spawn("/opt/sublime-text/sublime_text") end),
-   awful.key({ modkey, "Mod3"}, "n", function() awful.util.spawn("/home/twtwtw/Scripts/changeWallpaper.sh next") end),
+   awful.key({ modkey, "Mod3"}, "n", function() awful.util.spawn("/home/twtwtw/Scripts/changeWallpaper.sh random") end),
    awful.key({ modkey, "Mod3"}, "p", function() awful.util.spawn("/home/twtwtw/Scripts/changeWallpaper.sh previous") end),
    awful.key({ modkey , "Mod3"}, "d", function() awful.util.spawn("/home/twtwtw/Scripts/changeWallpaper.sh delete") end),
 
@@ -399,6 +409,12 @@ globalkeys = awful.util.table.join(
 awful.key({     }, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer set Master 5%+", false) end),
 awful.key({     }, "XF86AudioLowerVolume", function() awful.util.spawn("amixer set Master 5%-", false) end),
 awful.key({     }, "XF86AudioMute", function() awful.util.spawn("amixer set Master toggle", false) end),
+
+-- {{ Print Screen }}
+awful.key({     }, "Print", function() awful.util.spawn("gnome-screenshot") end),
+awful.key({ "Shift" }, "Print", function() awful.util.spawn("gnome-screenshot -i") end),
+--awful.key({ modkey }, "Print", function() awful.util.spawn("scrot -s") end),
+-- awful.key({ modkey, "Mod3" }, "s", function() awful.util.spawn("scrot -s") end),
 
 -- {{ Vim-like controls:
 
@@ -561,12 +577,25 @@ globalkeys = awful.util.table.join(globalkeys,
             end
 		end
 	),
-	awful.key({modkey }, "c",
+	awful.key({modkey }, "x",
 		function()
 			local screen = mouse.screen
 			local tag = awful.tag.gettags(screen)[6]
             local cur = awful.tag.selected(1)
             if awful.tag.getidx(cur) == 6 then
+               awful.tag.history.restore(screen)
+			elseif tag then
+               awful.tag.viewonly(tag)
+            end
+
+		end
+	),
+	awful.key({modkey }, "c",
+		function()
+			local screen = mouse.screen
+			local tag = awful.tag.gettags(screen)[7]
+            local cur = awful.tag.selected(1)
+            if awful.tag.getidx(cur) == 7 then
                awful.tag.history.restore(screen)
 			elseif tag then
                awful.tag.viewonly(tag)
@@ -643,18 +672,23 @@ awful.rules.rules = {
     { rule_any = { class = {"MPlayer", "gimp", "Thunar"} },
       properties = { floating = true } },
 
-    { rule = { class = "terminology" },
+    { rule_any = { class = {"terminology", "LilyTerm"} },
       properties = { focus = true }, callback = awful.placement.centered },
 
     -- float and center
     { rule_any = { class = {"Nautilus", "file-roller", "Compress", "Gthumb"}},
       properties = { floating = true }, callback = awful.placement.centered },
+
     { rule_any = { instance = {"cbconsole", "feh", "file_properties", "file-roller", "Places"}},
       properties = { floating = true }, callback = awful.placement.centered },
 
     { rule = { class = "Emacs" }, properties = { tag = tags[1][2] } },
 
-    { rule = { class = "Codeblocks", instance = "codeblocks" },
+    { rule = { class = "VirtualBox" }, properties = { tag = tags[1][6] } },
+
+    { rule = { class = "Deepin-music-player" }, properties = { tag = tags[1][5] } },
+
+    { rule = { class = "Codeblocks", instance = "codeblocks", name="Start here - Code::Blocks 13.12" },
       properties = { tag = tags[1][4],maximized_vertical = true, maximized_horizontal = true }, callback = awful.placement.no_offscreen },
 
     { rule = { class = "Firefox", instance = "Navigator" },
@@ -763,11 +797,11 @@ end
 -- run_once("xcompmgr -Ss -n -Cc -fF -I-10 -O-10 -D1 -t-3 -l-4 -r4 &")
 run_once("nm-applet")
 run_once("fcitx")
---run_once("/home/twtwtw/Scripts/setKeyboard.sh")
+run_once("/home/twtwtw/Scripts/setKeyboard.sh")
 run_once("parcellite")
 run_once("volumeicon")
-run_once("thunar --daemon")
-run_once("numlockx on")
+-- run_once("thunar --daemon")
+-- run_once("numlockx on")
 run_once("compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &")
 -- run_once("firefox")
 -- run_once("emacs")
