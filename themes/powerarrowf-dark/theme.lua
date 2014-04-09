@@ -10,7 +10,10 @@ themes_dir = os.getenv("HOME") .. "/.config/awesome/themes/powerarrowf-dark"
 
 -- theme.font          = "YaHei Consolas Hybrid 10"
 theme.font          = "Hiragino Sans GB W3 8"
-theme.wallpaper     = themes_dir .. "/darkwood.png"
+
+-- theme.wallpaper     = themes_dir .. "/wallpaper.png"
+
+theme.wallpaper = os.getenv("HOME") .. "/.config/awesome/wallpaper.png"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#1E2320"
@@ -38,7 +41,7 @@ theme.border_marked = "#91231c"
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- Example:
---theme.taglist_bg_focus = "#ff0000"
+-- theme.taglist_bg_focus = "#ff0000"
 
 -- Display the taglist squares
 theme.taglist_squares_sel   = themes_dir .. "/icons/square_sel.png"

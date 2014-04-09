@@ -84,21 +84,18 @@ local layouts =
 -- }}}
 
 -- {{{ Wallpaper
--- if beautiful.wallpaper then
---     for s = 1, screen.count() do
---         gears.wallpaper.maximized(beautiful.wallpaper, s, true)
---     end
--- end
-
-
-awful.util.spawn("/home/twtwtw/Scripts/changeWallpaper.sh random")
-
+if beautiful.wallpaper then
+    for s = 1, screen.count() do
+        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+    end
+end
+-- awful.util.spawn("/home/twtwtw/Scripts/changeWallpaper.sh random")
 -- }}}
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names = {"Firefox", "Emacs", "Versatile", "Development", "Entertainment", "Virtual", "Misc"},
+	names = {"Firefox", "Emacs", "Terminals", "Development", "Versatile", "Virtual", "Misc"},
 	layouts = {layouts[1], layouts[2], layouts[2], layouts[1], layouts[1], layouts[1] , layouts[2],}
 }
 for s = 1, screen.count() do
@@ -403,6 +400,7 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey, "Mod3"}, "n", function() awful.util.spawn("/home/twtwtw/Scripts/changeWallpaper.sh random") end),
    awful.key({ modkey, "Mod3"}, "p", function() awful.util.spawn("/home/twtwtw/Scripts/changeWallpaper.sh previous") end),
    awful.key({ modkey , "Mod3"}, "d", function() awful.util.spawn("/home/twtwtw/Scripts/changeWallpaper.sh delete") end),
+   awful.key({ modkey , "Mod3"}, "s", function() awful.util.spawn("/home/twtwtw/Scripts/setScreen.sh") end),
 
 -- {{ Volume Control }} --
 
@@ -676,7 +674,10 @@ awful.rules.rules = {
       properties = { focus = true }, callback = awful.placement.centered },
 
     -- float and center
-    { rule_any = { class = {"Nautilus", "file-roller", "Compress", "Gthumb"}},
+    { rule_any = { class = {"Nautilus"}},
+      properties = {  }, callback = awful.placement.centered },
+
+    { rule_any = { class = {"file-roller", "Compress", "Gthumb"}},
       properties = { floating = true }, callback = awful.placement.centered },
 
     { rule_any = { instance = {"cbconsole", "feh", "file_properties", "file-roller", "Places"}},
@@ -690,6 +691,11 @@ awful.rules.rules = {
 
     { rule = { class = "Codeblocks", instance = "codeblocks", name="Start here - Code::Blocks 13.12" },
       properties = { tag = tags[1][4],maximized_vertical = true, maximized_horizontal = true }, callback = awful.placement.no_offscreen },
+
+    { rule = { class = "VirtualBox", instance = "Qt-subapplication" },
+      properties = { tag = tags[1][6], maximized_vertical = true, maximized_horizontal = true }, callback = awful.placement.no_offscreen },
+    { rule = { class = "VirtualBox", instance = "Qt-subapplication", name="Oracle VM VirtualBox Manager" },
+      properties = { tag = tags[1][6], maximized_vertical = false, maximized_horizontal = false }, callback = awful.placement.no_offscreen },
 
     { rule = { class = "Firefox", instance = "Navigator" },
       properties = { tag = tags[1][1],maximized_vertical = true, maximized_horizontal = true }, callback = awful.placement.no_offscreen },
@@ -797,15 +803,15 @@ end
 -- run_once("xcompmgr -Ss -n -Cc -fF -I-10 -O-10 -D1 -t-3 -l-4 -r4 &")
 run_once("nm-applet")
 run_once("fcitx")
-run_once("/home/twtwtw/Scripts/setKeyboard.sh")
 run_once("parcellite")
 run_once("volumeicon")
--- run_once("thunar --daemon")
 -- run_once("numlockx on")
 run_once("compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &")
 -- run_once("firefox")
 -- run_once("emacs")
+run_once("variety")
 run_once("keynav")
+-- run_once("/home/twtwtw/Scripts/setKeyboard.sh")
 
 -- run_once("dbus-launch docky")
 
