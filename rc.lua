@@ -12,6 +12,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
+local lain = require("lain")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -44,7 +45,7 @@ end
 
 -- Setup directories
 config_dir = (os.getenv("HOME").."/.config/awesome/")
-themes_dir = (config_dir .. "themes/powerarrowf-dark")
+themes_dir = (config_dir .. "themes/UltraNeon")
 
 beautiful.init(themes_dir .. "/theme.lua")
 
@@ -65,21 +66,21 @@ arrl_ld:set_image(beautiful.arrl_ld)
 arrl_dl = wibox.widget.imagebox()
 arrl_dl:set_image(beautiful.arrl_dl)
 
--- Default modkey.
--- -- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+-- modkey.
+modkey   = "Mod4"
+altkey   = "Mod1"
+altkey_r = "Mod3"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
 {
     awful.layout.suit.floating,
+    --awful.layout.suit.fair,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
+    lain.layout.uselesstile,
 }
 -- }}}
 
@@ -95,8 +96,8 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names = {"Firefox", "Emacs", "Terminals", "Development", "Versatile", "Virtual", "Misc"},
-	layouts = {layouts[1], layouts[2], layouts[2], layouts[1], layouts[1], layouts[1] , layouts[2],}
+	names = {" Firefox", " Emacs", " Terminals", " Dev", " Versatile", " Virtual", " Misc"},
+	layouts = {layouts[1], layouts[3], layouts[2], layouts[1], layouts[1], layouts[1] , layouts[2],}
 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -138,6 +139,7 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = myma
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
+--require("freedesktop/freedesktop")
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
@@ -151,7 +153,7 @@ mytextclock = awful.widget.textclock()
 --%M     The minute as a decimal number (range 00 to 59).
 --%S     The  second as a decimal number (range 00 to 60).
 tdwidget = wibox.widget.textbox()
-vicious.register(tdwidget, vicious.widgets.date, '<span font="Hiragino Sans GB W3 8" color="#AAAAAA" background="#1F2428"> %b %d %H:%M:%S </span>', 20)
+vicious.register(tdwidget, vicious.widgets.date, '<span font="Hiragino Sans GB W3 8" color="#AAAAAA" background="#1F2428"> %b %d %H:%M </span>', 24)
 
 clockicon = wibox.widget.imagebox()
 clockicon:set_image(beautiful.clock)
@@ -320,7 +322,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s, height = "20" })
+    mywibox[s] = awful.wibox({ position = "top", screen = s, height = "22" })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()

@@ -1,32 +1,42 @@
----------------------------
--- Default awesome theme --
----------------------------
+----------------------------
+-- Ultra Neon By CyberLuc --
+----------------------------
 
 theme = {}
-theme.name = "CyberLuc"
+theme.name = "Ultra-Neon"
 
 -- Setup Paths
-themes_dir = os.getenv("HOME") .. "/.config/awesome/themes/CyberLuc"
-theme.icon_dir = os.getenv("HOME") .. "/.config/awesome/themes/CyberLuc/icons/taglist"
+themes_dir = os.getenv("HOME") .. "/.config/awesome/themes/UltraNeon"
+theme.icon_dir = os.getenv("HOME") .. "/.config/awesome/themes/UltraNeon/icons/taglist"
 
 -- theme.font          = "YaHei Consolas Hybrid 10"
 theme.font          = "Hiragino Sans GB W3 8"
 
 theme.wallpaper = os.getenv("HOME") .. "/.config/awesome/wallpaper.png"
 
-theme.bg_normal     = "#222222"
+theme.fg_normal     = "#FFFFFF"
+theme.fg_focus      = "#0099CC"
+theme.fg_urgent     = "#CC9393"
+
+theme.bg_normal     = "#242424"
 theme.bg_focus      = "#1E2320"
-theme.bg_urgent     = "#3F3F3F"
+theme.bg_urgent     = "#2A1F1E"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#AAAAAA"
-theme.fg_focus      = "#0099CC"
-theme.fg_urgent     = "#3F3F3F"
-
-theme.border_width  = 0
-theme.border_normal = "#000000"
-theme.border_focus  = "#535d6c"
+theme.border_width  = "1"
+theme.border_normal = "#252525"
+theme.border_focus  = "#0099CC"
 theme.border_marked = "#91231c"
+
+theme.taglist_fg_focus      = "#FFFFFF"
+theme.taglist_bg_focus      = "png:" .. theme.icon_dir .. "/taglist_bg_focus.png"
+theme.taglist_squares_sel   = themes_dir .. "/icons/taglist/square_sel.png"
+theme.taglist_squares_unsel = themes_dir .. "/icons/taglist/square_unsel.png"
+
+theme.tasklist_bg_normal    = "#222222"
+theme.tasklist_fg_focus     = "#4CB7DB"
+theme.tasklist_bg_focus     = "png:" .. themes_dir .. "/icons/taglist/bg_focus_noline.png"
+
 
 theme.notify_fg     = theme.fg_normal
 theme.notify_bg     = theme.bg_normal
@@ -42,14 +52,7 @@ theme.notify_border = theme.border_focus
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- Example:
 -- theme.taglist_bg_focus = "#ff0000"
---
-theme.taglist_fg_focus  = "#FFFFFF"
-theme.taglist_bg_focus  = "png:" .. theme.icon_dir .. "/taglist_bg_focus.png"
-theme.taglist_squares_sel   = themes_dir .. "/icons/taglist/square_sel.png"
-theme.taglist_squares_unsel = themes_dir .. "/icons/taglist/square_unsel.png"
 
---theme.taglist_squares_sel   = themes_dir .. "/icons/square_sel.png"
---theme.taglist_squares_unsel = themes_dir .. "/icons/square_unsel.png"
 
 
 -- Variables set for theming the menu:

@@ -15,11 +15,19 @@ freedesktop.utils.icon_theme = 'gnome'  -- choose your favourite from /usr/share
 
 menu_items = freedesktop.menu.new()
 
+myPowerMenu = {
+   { "Logout", awesome.quit },
+   { "Reboot", function() awful.util.spawn("systemctl reboot") end},
+   { "Suspend", function() awful.util.spawn("sudo pm-suspend") end},
+   { "Hibernate", function() awful.util.spawn("sudo pm-hibernate") end},
+   { "Poweroff", function() awful.util.spawn("systemctl poweroff") end}
+}
+
 myawesomemenu = {
- { "manual", terminal .. " -e man awesome", freedesktop.utils.lookup_icon({ icon = 'help' }) },
- { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua", freedesktop.utils.lookup_icon({ icon = 'package_settings' }) },
- { "restart", awesome.restart, freedesktop.utils.lookup_icon({ icon = 'gtk-refresh' }) },
- { "quit", awesome.quit, freedesktop.utils.lookup_icon({ icon = 'gtk-quit' }) }
+ { "Manual", terminal .. " -e man awesome", freedesktop.utils.lookup_icon({ icon = 'help' }) },
+ { "Edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua", freedesktop.utils.lookup_icon({ icon = 'package_settings' }) },
+ { "Restart", awesome.restart, freedesktop.utils.lookup_icon({ icon = 'gtk-refresh' }) },
+ { "Quit", awesome.quit, freedesktop.utils.lookup_icon({ icon = 'gtk-quit' }) }
 }
 
 for s = 1, screen.count() do
@@ -28,8 +36,11 @@ for s = 1, screen.count() do
     freedesktop.desktop.add_desktop_icons({screen = s, showlabels = true})
 end
 
-table.insert(menu_items, { "awesome", myawesomemenu, beautiful.awesome_icon })
-table.insert(menu_items, { "open terminal", terminal, freedesktop.utils.lookup_icon({icon = 'terminal'}) })
+table.insert(menu_items, { "Awesome", myawesomemenu, beautiful.awesome_icon })
+table.insert(menu_items, { "Open terminal", terminal, freedesktop.utils.lookup_icon({icon = 'terminal'}) })
+table.insert(menu_items, { "Power", myPowerMenu, beautiful.awesome_icon })
+           
+
 -- table.insert(menu_items, { "Debian", debian.menu.Debian_menu.Debian, freedesktop.utils.lookup_icon({ icon = 'debian-logo' }) })
 
 mymainmenu = awful.menu.new({ items = menu_items, theme = { width = 150 } })
