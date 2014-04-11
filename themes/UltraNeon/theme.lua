@@ -14,7 +14,7 @@ theme.font          = "Hiragino Sans GB W3 8"
 
 theme.wallpaper = os.getenv("HOME") .. "/.config/awesome/wallpaper.png"
 
-theme.fg_normal     = "#FFFFFF"
+theme.fg_normal     = "#BBBBBB"
 theme.fg_focus      = "#0099CC"
 theme.fg_urgent     = "#CC9393"
 
@@ -23,7 +23,7 @@ theme.bg_focus      = "#1E2320"
 theme.bg_urgent     = "#2A1F1E"
 theme.bg_systray    = theme.bg_normal
 
-theme.border_width  = "1"
+theme.border_width  = "0"
 theme.border_normal = "#252525"
 theme.border_focus  = "#0099CC"
 theme.border_marked = "#91231c"

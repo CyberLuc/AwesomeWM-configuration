@@ -406,9 +406,9 @@ globalkeys = awful.util.table.join(
 
 -- {{ Volume Control }} --
 
-awful.key({     }, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer set Master 5%+", false) end),
-awful.key({     }, "XF86AudioLowerVolume", function() awful.util.spawn("amixer set Master 5%-", false) end),
-awful.key({     }, "XF86AudioMute", function() awful.util.spawn("amixer set Master toggle", false) end),
+--awful.key({     }, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer set Master 5%+", false) end),
+--awful.key({     }, "XF86AudioLowerVolume", function() awful.util.spawn("amixer set Master 5%-", false) end),
+--awful.key({     }, "XF86AudioMute", function() awful.util.spawn("amixer set Master toggle", false) end),
 
 -- {{ Print Screen }}
 awful.key({     }, "Print", function() awful.util.spawn("gnome-screenshot") end),
@@ -480,7 +480,7 @@ awful.key({ "Shift" }, "Print", function() awful.util.spawn("gnome-screenshot -i
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end)
 
     -- awful.key({ modkey }, "x",
     --           function ()
@@ -490,7 +490,7 @@ awful.key({ "Shift" }, "Print", function() awful.util.spawn("gnome-screenshot -i
     --               awful.util.getdir("cache") .. "/history_eval")
     --           end),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end)
+    --awful.key({ modkey }, "p", function() menubar.show() end)
 )
 
 clientkeys = awful.util.table.join(
@@ -679,17 +679,21 @@ awful.rules.rules = {
     { rule_any = { class = {"Nautilus"}},
       properties = {  }, callback = awful.placement.centered },
 
-    { rule_any = { class = {"file-roller", "Compress", "Gthumb"}},
+    { rule_any = { class = {"CopyQ", "Eog", "file-roller", "Compress", "Gthumb"}},
       properties = { floating = true }, callback = awful.placement.centered },
 
-    { rule_any = { instance = {"cbconsole", "feh", "file_properties", "file-roller", "Places"}},
+    { rule_any = { instance = {"copyq", "eog", "cbconsole", "feh", "file_properties", "file-roller", "Places"}},
       properties = { floating = true }, callback = awful.placement.centered },
+
+    { rule = { class = "Synapse", instance= "synapse" }, properties = { border_width = 0 } },
 
     { rule = { class = "Emacs" }, properties = { tag = tags[1][2] } },
 
-    { rule = { class = "VirtualBox" }, properties = { tag = tags[1][6] } },
+    { rule = { class = "Gimp", instance="gimp" }, properties = { tag = tags[1][4] } },
 
-    { rule = { class = "Deepin-music-player" }, properties = { tag = tags[1][5] } },
+    { rule_any = { class = {"Deepin-music-player", "FoxitReader"} }, properties = { tag = tags[1][5] } },
+
+    { rule = { class = "VirtualBox" }, properties = { tag = tags[1][6] } },
 
     { rule = { class = "Codeblocks", instance = "codeblocks", name="Start here - Code::Blocks 13.12" },
       properties = { tag = tags[1][4],maximized_vertical = true, maximized_horizontal = true }, callback = awful.placement.no_offscreen },
@@ -704,7 +708,6 @@ awful.rules.rules = {
 
     { rule_any = { type = {"dialog", "popup_menu"}, instance = {"Ehh"} },
       properties = { focus = true, maximized_vertical = false, maximized_horizontal = false }, callback = awful.placement.centered },
-
 
     --{ rule_any = { instance = {"Dialog", "Mozilla"} },
       -- properties = { maximized_vertical = false, maximized_horizontal = false }, callback = awful.placement.centered },
@@ -798,17 +801,13 @@ function run_once(cmd)
         awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
--- {{ I need redshift to save my eyes }} -
--- run_once("redshift -l 49.26:-123.23")
--- awful.util.spawn_with_shell("xmodmap ~/.speedswapper")
--- awful.util.spawn_with_shell("dbus-launch docky")
 -- run_once("xcompmgr -Ss -n -Cc -fF -I-10 -O-10 -D1 -t-3 -l-4 -r4 &")
+run_once("compton -b")
 run_once("nm-applet")
 run_once("fcitx")
 run_once("parcellite")
 run_once("volumeicon")
 -- run_once("numlockx on")
-run_once("compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &")
 -- run_once("firefox")
 -- run_once("emacs")
 run_once("variety")
@@ -816,12 +815,12 @@ run_once("keynav")
 -- run_once("/home/twtwtw/Scripts/setKeyboard.sh")
 
 -- run_once("dbus-launch docky")
+-- awful.util.spawn_with_shell("cairo-compmgr &")
 
 -- {{ Turns off the terminal bell }} --
 -- awful.util.spawn_with_shell("/usr/bin/xset b off")
 
+
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus  end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-
--- awful.util.spawn_with_shell("cairo-compmgr &")
