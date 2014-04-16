@@ -111,6 +111,7 @@ myawesomemenu = {
    { "Manual", terminal .. " -e man awesome" },
    { "Edit config", editor_cmd .. " " .. awesome.conffile },
    { "Restart", awesome.restart },
+   { "Lock", function() awful.util.spawn("slimlock") end},
    { "Quit", awesome.quit },
 
 }
@@ -394,6 +395,7 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey,           }, "w", function() mymainmenu:show() end),
 
    -- {{ Shortcut Key Bindings }} --
+   awful.key({ modkey   , "Mod3"}, "l", function() awful.util.spawn("slimlock") end),
    awful.key({ "Control", modkey}, "a", function() awful.util.spawn(browser) end),
    awful.key({ "Control", modkey}, "e", function() awful.util.spawn(editor) end),
    awful.key({ "Control", modkey}, "d", function() awful.util.spawn("nautilus") end),
@@ -695,6 +697,8 @@ awful.rules.rules = {
 
     { rule = { class = "VirtualBox" }, properties = { tag = tags[1][6] } },
 
+    { rule_any = { class = {"CodeBlocks", "Wps", "Et", "Wpp"} }, properties = { tag = tags[1][4],maximized_vertical = true, maximized_horizontal = true  } },
+
     { rule = { class = "Codeblocks", instance = "codeblocks", name="Start here - Code::Blocks 13.12" },
       properties = { tag = tags[1][4],maximized_vertical = true, maximized_horizontal = true }, callback = awful.placement.no_offscreen },
 
@@ -812,6 +816,7 @@ run_once("volumeicon")
 -- run_once("emacs")
 run_once("variety")
 run_once("keynav")
+run_once("synapse -s")
 -- run_once("/home/twtwtw/Scripts/setKeyboard.sh")
 
 -- run_once("dbus-launch docky")
