@@ -693,7 +693,8 @@ awful.rules.rules = {
 
     { rule = { class = "Gimp", instance="gimp" }, properties = { tag = tags[1][4] } },
 
-    { rule_any = { class = {"Deepin-music-player", "FoxitReader"} }, properties = { tag = tags[1][5] } },
+    { rule_any = { class = {"Deepin-music-player"} }, properties = { tag = tags[1][5] } },
+    { rule = { class = "FoxitReader" }, properties = { tag = tags[1][5],maximized_vertical = true, maximized_horizontal = true  } },
 
     { rule = { class = "VirtualBox" }, properties = { tag = tags[1][6] } },
 
@@ -806,16 +807,17 @@ function run_once(cmd)
 end
 
 -- run_once("xcompmgr -Ss -n -Cc -fF -I-10 -O-10 -D1 -t-3 -l-4 -r4 &")
-run_once("compton -b")
-run_once("nm-applet")
-run_once("fcitx")
-run_once("parcellite")
-run_once("volumeicon")
+run_once("compton -b &")
+run_once("nm-applet &")
+run_once("fcitx &")
+run_once("fcitx-qimpanel &")
+run_once("parcellite &")
+run_once("volumeicon &")
 -- run_once("numlockx on")
 -- run_once("firefox")
 -- run_once("emacs")
-run_once("variety")
-run_once("keynav")
+run_once("variety &")
+run_once("keynav &")
 run_once("synapse -s")
 -- run_once("/home/twtwtw/Scripts/setKeyboard.sh")
 
