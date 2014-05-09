@@ -662,57 +662,144 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     keys = clientkeys,
-                     buttons = clientbuttons,
-                     size_hints_honor = false
-    }, callback = awful.placement.centered  },
+      properties = {
+         border_width = beautiful.border_width,
+         border_color = beautiful.border_normal,
+         focus = awful.client.focus.filter,
+         keys = clientkeys,
+         buttons = clientbuttons,
+         size_hints_honor = false },
+      callback = awful.placement.centered },
 
     -- floating group
-    { rule_any = { class = {"MPlayer", "gimp", "Thunar"} },
-      properties = { floating = true } },
+    { rule_any = {
+         class = { "MPlayer", "gimp", "Thunar" } },
+      properties = {
+         floating = true } },
 
-    { rule_any = { class = {"terminology", "LilyTerm"} },
-      properties = { focus = true }, callback = awful.placement.centered },
+    { rule_any = {
+         class = { "terminology", "LilyTerm" } },
+      properties = {
+         focus = true },
+      callback = awful.placement.centered },
 
     -- float and center
-    { rule_any = { class = {"Nautilus"}},
-      properties = {  }, callback = awful.placement.centered },
+    { rule_any = {
+         class = {"Nautilus"}},
+      properties = {  },
+      callback = awful.placement.centered },
 
-    { rule_any = { class = {"CopyQ", "Eog", "file-roller", "Compress", "Gthumb"}},
-      properties = { floating = true }, callback = awful.placement.centered },
+    { rule_any = {
+         class = { "CopyQ", "Eog", "file-roller",
+                   "Compress", "Gthumb" } },
+      properties = {
+         floating = true },
+      callback = awful.placement.centered },
 
-    { rule_any = { instance = {"copyq", "eog", "cbconsole", "feh", "file_properties", "file-roller", "Places"}},
-      properties = { floating = true }, callback = awful.placement.centered },
+    { rule_any = {
+         instance = { "copyq", "eog", "cbconsole",
+                      "feh", "file_properties",
+                      "file-roller", "Places" },
+         class = { "feh" }},
+      properties = {
+         floating = true },
+      callback = awful.placement.centered },
 
-    { rule = { class = "Synapse", instance= "synapse" }, properties = { border_width = 0 } },
+    { rule = {
+         class = "Synapse",
+         instance= "synapse" },
+      properties = {
+         border_width = 0 } },
 
-    { rule = { class = "Emacs" }, properties = { tag = tags[1][2] } },
+    { rule = {
+         class = "Emacs" },
+      properties = {
+         tag = tags[1][2] } },
 
-    { rule = { class = "Gimp", instance="gimp" }, properties = { tag = tags[1][4] } },
+    { rule = {
+         class = "Gimp",
+         instance="gimp" },
+      properties = {
+         tag = tags[1][4] } },
 
-    { rule_any = { class = {"Deepin-music-player"} }, properties = { tag = tags[1][5] } },
-    { rule = { class = "FoxitReader" }, properties = { tag = tags[1][5],maximized_vertical = true, maximized_horizontal = true  } },
+    { rule_any = {
+         class = { "Deepin-music-player" } },
+      properties = {
+         tag = tags[1][5] } },
 
-    { rule = { class = "VirtualBox" }, properties = { tag = tags[1][6] } },
+    { rule = {
+         class = "FoxitReader" },
+      properties = {
+         tag = tags[1][5],
+         maximized_vertical = true,
+         maximized_horizontal = true  } },
 
-    { rule_any = { class = {"CodeBlocks", "Wps", "Et", "Wpp"} }, properties = { tag = tags[1][4],maximized_vertical = true, maximized_horizontal = true  } },
+    { rule = {
+         instance = "Foxit Reader.exe",
+         class = "Wine" },
+      properties = {
+         tag = tags[1][5],
+         maximized_vertical = true,
+         maximized_horizontal = true  } },
 
-    { rule = { class = "Codeblocks", instance = "codeblocks", name="Start here - Code::Blocks 13.12" },
-      properties = { tag = tags[1][4],maximized_vertical = true, maximized_horizontal = true }, callback = awful.placement.no_offscreen },
+    { rule = {
+         class = "VirtualBox" },
+      properties = {
+         tag = tags[1][6] } },
 
-    { rule = { class = "VirtualBox", instance = "Qt-subapplication" },
-      properties = { tag = tags[1][6], maximized_vertical = true, maximized_horizontal = true }, callback = awful.placement.no_offscreen },
-    { rule = { class = "VirtualBox", instance = "Qt-subapplication", name="Oracle VM VirtualBox Manager" },
-      properties = { tag = tags[1][6], maximized_vertical = false, maximized_horizontal = false }, callback = awful.placement.no_offscreen },
+    { rule_any = {
+         class = { "CodeBlocks", "Wps", "Et", "Wpp", "xfreerdp" } },
+      properties = {
+         tag = tags[1][4],
+         maximized_vertical = true,
+         maximized_horizontal = true  } },
 
-    { rule = { class = "Firefox", instance = "Navigator" },
-      properties = { tag = tags[1][1],maximized_vertical = true, maximized_horizontal = true }, callback = awful.placement.no_offscreen },
+    { rule = {
+         class = "Codeblocks",
+         instance = "codeblocks",
+         name = "Start here - Code::Blocks 13.12" },
+      properties = {
+         tag = tags[1][4],
+         maximized_vertical = true,
+         maximized_horizontal = true },
+      callback = awful.placement.no_offscreen },
 
-    { rule_any = { type = {"dialog", "popup_menu"}, instance = {"Ehh"} },
-      properties = { focus = true, maximized_vertical = false, maximized_horizontal = false }, callback = awful.placement.centered },
+    { rule = {
+         class = "VirtualBox",
+         instance = "Qt-subapplication" },
+      properties = {
+         tag = tags[1][6],
+         maximized_vertical = true,
+         maximized_horizontal = true },
+      callback = awful.placement.no_offscreen },
+
+    { rule = {
+         class = "VirtualBox",
+         instance = "Qt-subapplication",
+         name="Oracle VM VirtualBox Manager" },
+      properties = {
+         tag = tags[1][6],
+         maximized_vertical = false,
+         maximized_horizontal = false },
+      callback = awful.placement.no_offscreen },
+
+    { rule = {
+         class = "Firefox",
+         instance = "Navigator" },
+      properties = {
+         tag = tags[1][1],
+         maximized_vertical = true,
+         maximized_horizontal = true },
+      callback = awful.placement.no_offscreen },
+
+    { rule_any = {
+         type = { "dialog", "popup_menu"},
+         instance = {"Ehh"} },
+      properties = {
+         focus = true,
+         maximized_vertical = false,
+         maximized_horizontal = false },
+      callback = awful.placement.centered },
 
     --{ rule_any = { instance = {"Dialog", "Mozilla"} },
       -- properties = { maximized_vertical = false, maximized_horizontal = false }, callback = awful.placement.centered },
