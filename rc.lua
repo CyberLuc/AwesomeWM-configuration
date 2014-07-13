@@ -464,7 +464,11 @@ awful.key({ "Shift" }, "Print", function() awful.util.spawn("gnome-screenshot -i
                 client.focus:raise()
             end
         end),
-
+    awful.key({ altkey,           }, "Tab",
+        function ()
+           awful.client.focus.byidx(1)
+            if client.focus then client.focus:raise() end
+        end),
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
@@ -673,7 +677,7 @@ awful.rules.rules = {
 
     -- floating group
     { rule_any = {
-         class = { "MPlayer", "gimp", "Thunar" } },
+         class = { "MPlayer", "gimp", "Thunar", "Guake" } },
       properties = {
          floating = true } },
 
@@ -897,7 +901,7 @@ end
 run_once("compton -b &")
 run_once("nm-applet &")
 run_once("fcitx &")
-run_once("fcitx-qimpanel &")
+run_once("sogou-qimpanel &")
 run_once("parcellite &")
 run_once("volumeicon &")
 -- run_once("numlockx on")
