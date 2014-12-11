@@ -1,4 +1,4 @@
--- Standard awesome library
+-- Standard awesome librar
 local gears = require("gears")
 local awful = require("awful")
 awful.rules = require("awful.rules")
@@ -397,7 +397,7 @@ globalkeys = awful.util.table.join(
    -- {{ Shortcut Key Bindings }} --
    awful.key({ modkey   , "Mod3"}, "l", function() awful.util.spawn("slimlock") end),
    awful.key({ "Control", modkey}, "a", function() awful.util.spawn(browser) end),
-   awful.key({ "Control", modkey}, "e", function() awful.util.spawn(editor) end),
+   awful.key({ "Control", modkey}, "e", function() awful.util.spawn("emacs") end),
    awful.key({ "Control", modkey}, "d", function() awful.util.spawn("nautilus") end),
    awful.key({ "Control", modkey}, "c", function() awful.util.spawn("codeblocks") end),
    awful.key({ "Control", modkey}, "b", function() awful.util.spawn("/opt/sublime-text/sublime_text") end),
@@ -675,6 +675,14 @@ awful.rules.rules = {
          size_hints_honor = false },
       callback = awful.placement.centered },
 
+    { rule_any = {
+         class = { "LilyTerm" } },
+      properties = {
+         border_width = 1,
+         border_color = "#252525",
+         focus = true } },
+
+
     -- floating group
     { rule_any = {
          class = { "MPlayer", "gimp", "Thunar", "Guake" } },
@@ -819,12 +827,12 @@ awful.rules.rules = {
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
     -- Enable sloppy focus
-    c:connect_signal("mouse::enter", function(c)
-        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-            and awful.client.focus.filter(c) then
-            client.focus = c
-        end
-    end)
+    -- c:connect_signal("mouse::enter", function(c)
+    --     if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+    --         and awful.client.focus.filter(c) then
+    --         client.focus = c
+    --     end
+    -- end)
 
     if not startup then
         -- Set the windows at the slave,
@@ -907,10 +915,11 @@ run_once("volumeicon &")
 -- run_once("numlockx on")
 -- run_once("firefox")
 -- run_once("emacs")
-run_once("variety &")
+-- run_once("variety &")
 run_once("keynav &")
 run_once("synapse -s")
 -- run_once("/home/twtwtw/Scripts/setKeyboard.sh")
+run_once("/home/twtwtw/Scripts/setScreen.sh h")
 
 -- run_once("dbus-launch docky")
 -- awful.util.spawn_with_shell("cairo-compmgr &")
