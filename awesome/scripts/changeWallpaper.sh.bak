@@ -1,0 +1,122 @@
+#!/bin/bash
+
+picDir="/home/twtwtw/Pictures/Wallpapers/"
+tmpDir="/tmp/awesome-wallpapers"
+listFile=$tmpDir"/wallpapers.list"
+histFile=$tmpDir"/history"
+waitFile=$tmpDir"/wallpapers.waitlist"
+tmpFile=$tmpDir"/.tmp"
+curFile=$tmpDir"/.current"
+fileCnt=0
+
+function get_first_line() {
+    echo `head -n 1 $1`
+}
+
+function get_last_line() {
+    echo `tail -n 1 $1`
+}
+
+function push_first_line() {
+    echo $1;
+}
+
+function delete_first_line() {
+    sed -i '1d' $1
+}
+
+function delete_last_line() {
+    lastLine=`wc -l < $1`
+    sed -i $lastLine'd' $1
+}
+
+function insert_before_first_line() {
+    cnt=`wc -l < $2`
+    if [ $cnt -eq 0 ]; then
+        insert_after_last_line $1 $2
+    else
+        sed -i '1i\'$1 $2
+    fi
+}
+
+function insert_after_last_line() {
+    echo $1 >> $2
+}
+
+function make_unordered() {
+    awk 'BEGIN{srand()}{b[rand()NR]=$0}END{for(x in b)print b[x]}' $1 > $2
+}
+
+function create_if_not_exist_and_clear_if_exist() {
+    if [ ! -f $1 ]; then
+        touch $1;
+    else
+        echo "" > "$1";
+    fi
+}
+
+function set_as_wallpaper() {
+    feh --bg-fill $1
+    echo $1 > $curFile
+}
+
+function initialize() {
+    if [ ! -d $tmpDir ]; then mkdir $tmpDir; fi
+
+    create_if_not_exist_and_clear_if_exist $listFile
+    create_if_not_exist_and_clear_if_exist $waitFile
+    create_if_not_exist_and_clear_if_exist $histFile
+    create_if_not_exist_and_clear_if_exist $tmpFile
+    create_if_not_exist_and_clear_if_exist $curFile
+
+    echo "/home/twtwtw/.config/awesome/wallpaper.png" > $curFile
+
+    find $picDir -maxdepth 5 -type f -name '*.jpg' > $listFile
+    find $picDir -maxdepth 5 -type f -name '*.png' >> $listFile
+
+    fileCnt=`wc -l < $listFile`
+
+    make_unordered $listFile $waitFile
+}
+
+function next() {
+    cur=$(get_first_line $curFile)
+    next=$(get_first_line $waitFile)
+    # echo $next
+    delete_first_line $waitFile
+
+    if [ -n "$cur" ]; then
+        insert_before_first_line $cur $histFile
+    fi
+
+    set_as_wallpaper $next
+}
+
+function previous() {
+    prev=$(get_first_line $histFile)
+    if [ -z "$prev" ]; then return; fi
+    cur=$(get_first_line $curFile)
+    if [ -z "$cur" ]; then return; fi
+
+    insert_before_first_line $cur $waitFile
+    delete_first_line $histFile
+    set_as_wallpaper $prev
+}
+
+case "$1" in
+    "init")
+        initialize
+        ;;
+    "next")
+        next
+        ;;
+    "previous")
+        previous
+        ;;
+    "startup")
+        initialize
+        next
+        ;;
+    *)
+        ;;
+esac
