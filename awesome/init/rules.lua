@@ -199,9 +199,9 @@ awful.rules.rules = {
         class = "VirtualBox",
         instance = "Qt-subapplication" },
      properties = {
-        tag = tags[1][6],
-        maximized_vertical = true,
-        maximized_horizontal = true },
+        -- maximized_vertical = true,
+        -- maximized_horizontal = true
+     },
      callback = awful.placement.no_offscreen },
 
    { rule = {
@@ -209,9 +209,9 @@ awful.rules.rules = {
         instance = "Qt-subapplication",
         name="Oracle VM VirtualBox Manager" },
      properties = {
-        tag = tags[1][6],
         maximized_vertical = false,
-        maximized_horizontal = false },
+        maximized_horizontal = false
+     },
      callback = awful.placement.no_offscreen },
    ----------------------------------------------------------------------
    { rule_any = {

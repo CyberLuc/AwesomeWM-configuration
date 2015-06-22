@@ -10,6 +10,7 @@ scripts_dir = (config_dir .. "/scripts/")
 -- config_dir = (os.getenv("HOME").."/.config/awesome/")
 themes_dir = (config_dir .. "themes/pro-medium-dark")
 beautiful.init(themes_dir .. "/theme.lua")
+
 -- This is used later as the default terminal,
 --  browser and editor to run.
 -- terminal = "lilyterm --geometry 81x21"
